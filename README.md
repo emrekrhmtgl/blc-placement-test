@@ -1,19 +1,29 @@
 # BLC Placement Test
 
-British Language Center için bağımsız WordPress İngilizce seviye ön değerlendirme eklentisi. **Sürüm: 1.0.1** · PHP 7.4 veya üzeri.
+British Language Center için bağımsız WordPress İngilizce seviye ön değerlendirme eklentisi. **Sürüm: 1.1.0** · PHP 7.4 veya üzeri.
 
 **Akış: anonim test → sonuç → isteğe bağlı öğrenci iletişim bilgileri.** Teste başlamak veya sonucu görmek için hesap, isim, telefon ya da e-posta gerekmez. Başvuru formunun zorunlu alanları yalnızca danışmanlık talebi göndermek isteyenler içindir.
 
 ## Kurulum
 
-1. Bu depoda **Code → Download ZIP** seçin. ZIP'in kök klasörünün içinde `blc-placement-test.php` ve `assets/` bulunmalıdır. Ayrıca hazırlanmış `blc-placement-test-v1.0.1.zip` paketi kullanılabilir.
+1. Bu depoda **Code → Download ZIP** seçin. ZIP'in kök klasörünün içinde `blc-placement-test.php`, `assets/` ve `templates/` bulunmalıdır. Ayrıca hazırlanmış `blc-placement-test-v1.1.0.zip` paketi kullanılabilir.
 2. WordPress → Eklentiler → Yeni Eklenti Ekle → Eklenti Yükle bölümünden ZIP'i yükleyip etkinleştirin. Daha önce kuruluysa aynı eklentinin güncelleme seçeneğini kullanın; farklı klasör adlarıyla iki kopyayı aynı anda etkinleştirmeyin.
-3. Testi göstermek istediğiniz sayfaya Kısa Kod bloğu ekleyip `[blc_placement_test]` yazın. WPBakery kullanılıyorsa kısa kod destekleyen bir metin bileşeni kullanılabilir.
+3. Testi göstermek istediğiniz sayfaya Kısa Kod bloğu ekleyip **`[blc_placement_test_page]`** yazın. Bu yeni kısa kod, mobil uyumlu sayfa tasarımı içinde mevcut `[blc_placement_test]` sınavını çalıştırır. WPBakery kullanılıyorsa Text Block bileşenine de aynı kısa kodu yazabilirsiniz. Sadece sınav kartı istenirse eski `[blc_placement_test]` kullanılabilir.
 4. **BLC Seviye Testi** menüsünden başlangıç sorularını inceleyin. A1, A2, B1, B2 ve C1 seviyelerinin her birinde en az 8 aktif soru bulunmalıdır.
 5. Sonuç ekranının `/subelerimiz/` ve `/kvkk-aydinlatma-metni/` bağlantılarını kendi sitenizde kontrol edin. Farklı adresler kullanılıyorsa `assets/test.js` içindeki bu iki bağlantıyı uyarlayın; alt dizine kurulu sitelerde de adresleri kontrol edin.
 6. Gizli pencerede testi tamamlayın; sonucu kişisel bilgi girmeden görebildiğinizi doğrulayın. İstenirse örnek bir başvuruyu gönderip **BLC Seviye Testi → Başvurular** ekranından kontrol edin ve silin.
 
 Bu paket başka tema veya eklentilerin dosyalarını değiştirmez. Etkinleştirme yalnızca bu eklentiye ait üç veritabanı tablosunu ve günlük temizlik görevini oluşturur. Sayfaya kısa kod ekleme işlemi site yöneticisine aittir.
+
+## Tasarımlı sayfa
+
+`[blc_placement_test_page]` ile BLC lacivert/mavi renkleri, seviye basamakları görseli, test bilgi şeridi, üç adımlı rehber, sınav alanı ve açılır sık sorulan sorular birlikte gösterilir. Başlatma düğmesi sınav alanına gider; test başlayınca ve sonuç gelince rehberin aktif adımı güncellenir. Kişisel bilgiler yine yalnızca sonuçtan sonra isteğe bağlıdır.
+
+Sayfa ayarlarında mümkünse **Tam genişlik / Kenar çubuğu yok** seçin. Tema ayrıca sayfa başlığı gösteriyorsa başlık görünürlüğünü tema ayarından kapatabilirsiniz. Aynı sayfada eski sınav kısa kodunu yenisiyle **değiştirin**; ikisini birlikte eklemeyin.
+
+HTML `templates/page.html`, tasarım CSS'i `assets/page.css`, küçük gezinme/rehber JS'i `assets/page.js` içindedir. CSS yalnızca `.blc-page` içini etkiler; dışarıdan font veya görsel yüklenmez. Mobilde tek sütun, klavye ile gezinme ve azaltılmış hareket tercihi desteklenir. Testin asıl PHP/JS puanlama ve kayıt akışı korunur.
+
+HTML'i ayrı kullanmak isteyenler mevcut `[blc_placement_test]` kısa kodunu `templates/page.html` içindeki yerinde tutmalı ve `__BLC_EXAM_ID__` işaretlerini benzersiz bir HTML kimliğiyle değiştirmelidir. Gutenberg Özel HTML ve WPBakery Raw HTML blokları kısa kodu doğrudan çalıştırmak için uygun değildir; önerilen kurulum yukarıdaki yeni sayfa kısa kodudur.
 
 ## İçerik ve puanlama
 
@@ -36,6 +46,14 @@ Sınav oluşturma saatte IP başına 12, başvuru gönderme saatte IP başına 1
 1.0.1 için PHP sözdizimi ve JavaScript sözdizimi kontrolleri, 27 izole PHP kontrolü ve tarayıcı akış testi geçti. Test kapsamı: soru sayıları, Pre-A1–C1 eşikleri, anonim başlangıç, eksik yanıt, geçersiz doğrulama anahtarı, süre aşımı, kayıt hatası, eşzamanlı/tekrar gönderim, isteğe bağlı başvuru ve 390 px mobil genişlik.
 
 PHP kontrolleri WordPress/veritabanı yerine test taklitleri, tarayıcı testi taklit AJAX yanıtları kullanır. **Canlı WordPress/MySQL entegrasyonu veya mevcut sitenin tema/önbellek uyumu test edilmedi.** Yayına almadan önce deneme ortamında yukarıdaki kurulum kontrolünü tamamlayın.
+
+1.1.0 tasarımı 320, 375, 390, 768, 1024 ve 1440 px ekran genişliklerinde kontrol edildi. Soru ve sonuç ekranında yatay taşma, anonim testin tamamlanması, uzun Pre-A1 sonucu, isteğe bağlı form, adım rehberi, açılır sorular ve azaltılmış hareket tercihi doğrulandı. PHP kontrolleri yeni sürümde yeniden geçti. Yerel görsel önizlemede örnek veriler kullanılır ve form kayıtları gönderilmez; kurulan eklenti gerçek WordPress uç noktalarını kullanır.
+
+## 1.1.0 değişiklikleri
+
+- Mevcut test kısa kodunu içine alan `[blc_placement_test_page]` eklendi.
+- Mobil uyumlu giriş, test rehberi, sınav görünümü, sonuç/başvuru biçimleri ve sık sorulan sorular eklendi.
+- Tasarım dosyaları yalnızca yeni sayfa kısa kodu kullanıldığında yüklenir. Veritabanı yapısı ve test/form kayıt mantığı bu sürümde değişmedi.
 
 - Devam eden denemeler soru kimliklerini saklar; soru metni/cevabının anlık kopyası tutulmaz. Başlamış testler tamamlanmadan soruları düzenlemeyin veya silmeyin. Test gönderme süresi 24 saattir.
 - Sonuçtan sonraki başvuru süresi denemenin başlangıcından itibaren 7 gündür.

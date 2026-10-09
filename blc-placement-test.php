@@ -2,13 +2,13 @@
 /**
  * Plugin Name: BLC Placement Test
  * Description: Independent English placement test with optional post-result lead capture.
- * Version: 1.0.1
+ * Version: 1.1.0
  * Requires PHP: 7.4
  * Text Domain: blc-placement-test
  */
 if (!defined('ABSPATH')) exit;
 final class BLC_Placement_Test {
- const VER='1.0.1'; const TABLE='blc_pt_questions'; const ATTEMPTS='blc_pt_attempts'; const LEADS='blc_pt_leads';
+ const VER='1.1.0'; const TABLE='blc_pt_questions'; const ATTEMPTS='blc_pt_attempts'; const LEADS='blc_pt_leads';
  public static function init(){
   register_activation_hook(__FILE__,[__CLASS__,'activate']);
   register_deactivation_hook(__FILE__,[__CLASS__,'deactivate']);
@@ -19,6 +19,7 @@ final class BLC_Placement_Test {
   add_action('admin_post_blc_pt_delete_lead',[__CLASS__,'delete_lead']);
   add_action('wp_enqueue_scripts',[__CLASS__,'register_assets']);
   add_shortcode('blc_placement_test',[__CLASS__,'shortcode']);
+  add_shortcode('blc_placement_test_page',[__CLASS__,'page_shortcode']);
   foreach(['get_test','submit','lead'] as $method){
    add_action('wp_ajax_blc_pt_'.$method,[__CLASS__,$method]);
    add_action('wp_ajax_nopriv_blc_pt_'.$method,[__CLASS__,$method]);
@@ -118,6 +119,15 @@ final class BLC_Placement_Test {
   foreach($bank as $r){$wpdb->insert(self::name(self::TABLE),['level'=>$r[0],'category'=>$r[1],'question'=>$r[2],'choices'=>wp_json_encode($r[3]),'correct'=>$r[4],'explanation'=>'','active'=>1],['%s','%s','%s','%s','%d','%s','%d']);}
  }
  static function register_assets(){wp_register_style('blc-pt',plugins_url('assets/test.css',__FILE__),[],self::VER);wp_register_script('blc-pt',plugins_url('assets/test.js',__FILE__),[],self::VER,true);}
+ static function page_shortcode(){
+  self::register_assets();
+  wp_enqueue_style('blc-pt-page',plugins_url('assets/page.css',__FILE__),['blc-pt'],self::VER);
+  wp_enqueue_script('blc-pt-page',plugins_url('assets/page.js',__FILE__),['blc-pt'],self::VER,true);
+  $html=file_get_contents(__DIR__.'/templates/page.html');
+  if($html===false)return self::shortcode();
+  $html=str_replace('__BLC_EXAM_ID__',esc_attr(wp_unique_id('blc-test-')),$html);
+  return do_shortcode($html);
+ }
  static function shortcode(){wp_enqueue_style('blc-pt');wp_enqueue_script('blc-pt');wp_localize_script('blc-pt','BLCPT',['ajax'=>admin_url('admin-ajax.php'),'nonce'=>wp_create_nonce('blc_pt_public')]);return '<div class="blc-pt" data-blc-pt><div class="blc-pt-card"><div class="blc-pt-kicker">BRITISH LANGUAGE CENTER</div><div class="blc-pt-app" aria-live="polite"><h2>İngilizce Seviyeni Keşfet</h2><p>40 soruluk ön değerlendirmeye hemen başlayabilirsin. Kişisel bilgi vermek zorunda değilsin.</p><button class="blc-pt-btn" data-start>Teste Başla →</button><p class="blc-pt-fine">Sonuçlar tahminidir; resmî CEFR belgesi veya konuşma/dinleme değerlendirmesi değildir.</p></div></div></div>';}
  static function verify_public(){if(!check_ajax_referer('blc_pt_public','nonce',false))wp_send_json_error(['message'=>'Güvenlik doğrulaması başarısız. Sayfayı yenileyin.'],403);}
  static function request_post($key){return isset($_POST[$key]) && is_string($_POST[$key])?wp_unslash($_POST[$key]):'';}
