@@ -1,12 +1,12 @@
 # BLC Placement Test
 
-British Language Center için bağımsız WordPress İngilizce seviye ön değerlendirme eklentisi. **Sürüm: 1.1.0** · PHP 7.4 veya üzeri.
+British Language Center için bağımsız WordPress İngilizce seviye ön değerlendirme eklentisi. **Sürüm: 1.1.1** · PHP 7.4 veya üzeri.
 
 **Akış: anonim test → sonuç → isteğe bağlı öğrenci iletişim bilgileri.** Teste başlamak veya sonucu görmek için hesap, isim, telefon ya da e-posta gerekmez. Başvuru formunun zorunlu alanları yalnızca danışmanlık talebi göndermek isteyenler içindir.
 
 ## Kurulum
 
-1. Bu depoda **Code → Download ZIP** seçin. ZIP'in kök klasörünün içinde `blc-placement-test.php`, `assets/` ve `templates/` bulunmalıdır. Ayrıca hazırlanmış `blc-placement-test-v1.1.0.zip` paketi kullanılabilir.
+1. Bu depoda **Code → Download ZIP** seçin. ZIP'in kök klasörünün içinde `blc-placement-test.php`, `assets/` ve `templates/` bulunmalıdır. Ayrıca hazırlanmış `blc-placement-test-v1.1.1.zip` paketi kullanılabilir.
 2. WordPress → Eklentiler → Yeni Eklenti Ekle → Eklenti Yükle bölümünden ZIP'i yükleyip etkinleştirin. Daha önce kuruluysa aynı eklentinin güncelleme seçeneğini kullanın; farklı klasör adlarıyla iki kopyayı aynı anda etkinleştirmeyin.
 3. Testi göstermek istediğiniz sayfaya Kısa Kod bloğu ekleyip **`[blc_placement_test_page]`** yazın. Bu yeni kısa kod, mobil uyumlu sayfa tasarımı içinde mevcut `[blc_placement_test]` sınavını çalıştırır. WPBakery kullanılıyorsa Text Block bileşenine de aynı kısa kodu yazabilirsiniz. Sadece sınav kartı istenirse eski `[blc_placement_test]` kullanılabilir.
 4. **BLC Seviye Testi** menüsünden başlangıç sorularını inceleyin. A1, A2, B1, B2 ve C1 seviyelerinin her birinde en az 8 aktif soru bulunmalıdır.
@@ -14,6 +14,14 @@ British Language Center için bağımsız WordPress İngilizce seviye ön değer
 6. Gizli pencerede testi tamamlayın; sonucu kişisel bilgi girmeden görebildiğinizi doğrulayın. İstenirse örnek bir başvuruyu gönderip **BLC Seviye Testi → Başvurular** ekranından kontrol edin ve silin.
 
 Bu paket başka tema veya eklentilerin dosyalarını değiştirmez. Etkinleştirme yalnızca bu eklentiye ait üç veritabanı tablosunu ve günlük temizlik görevini oluşturur. Sayfaya kısa kod ekleme işlemi site yöneticisine aittir.
+
+### GitHub ZIP'inden geçiş / aynı eklentinin iki kopyası
+
+GitHub'ın Download ZIP paketi `blc-placement-test-main`, hazırlanan standart kurulum ZIP'i `blc-placement-test` klasörünü kullanır. WordPress bunları iki ayrı eklenti olarak görebilir. **İkisini aynı anda etkinleştirmeyin.**
+
+Mevcut klasörünüz `blc-placement-test-main` ise bu klasör adına uygun `blc-placement-test-main-v1.1.1.zip` güncelleme paketini kullanabilirsiniz. Önce Eklentiler ekranında etkin BLC Placement Test kopyalarını devre dışı bırakın. ZIP'i yükleyip yüklü olanı değiştirin; yalnızca 1.1.1 sürümünü etkinleştirin. Devre dışı bırakma ve bu güncelleme soru bankasını veya başvuruları silmez. Sayfadaki tasarım kısa kodu `[blc_placement_test_page]` olarak kalır.
+
+1.1.1, mevcut sınıf yüklüyken yeni kopyanın yüklenmesini korur ve çift etkinleştirmede açıklayıcı mesaj verir. Bu koruma eski ve korumasız dosyaların her yüklenme sırasını düzeltemez; yine yalnızca tek kopya etkin olmalıdır.
 
 ## Tasarımlı sayfa
 
@@ -48,6 +56,12 @@ Sınav oluşturma saatte IP başına 12, başvuru gönderme saatte IP başına 1
 PHP kontrolleri WordPress/veritabanı yerine test taklitleri, tarayıcı testi taklit AJAX yanıtları kullanır. **Canlı WordPress/MySQL entegrasyonu veya mevcut sitenin tema/önbellek uyumu test edilmedi.** Yayına almadan önce deneme ortamında yukarıdaki kurulum kontrolünü tamamlayın.
 
 1.1.0 tasarımı 320, 375, 390, 768, 1024 ve 1440 px ekran genişliklerinde kontrol edildi. Soru ve sonuç ekranında yatay taşma, anonim testin tamamlanması, uzun Pre-A1 sonucu, isteğe bağlı form, adım rehberi, açılır sorular ve azaltılmış hareket tercihi doğrulandı. PHP kontrolleri yeni sürümde yeniden geçti. Yerel görsel önizlemede örnek veriler kullanılır ve form kayıtları gönderilmez; kurulan eklenti gerçek WordPress uç noktalarını kullanır.
+
+## 1.1.1 değişiklikleri
+
+- Aynı eklenti sınıfı zaten yüklüyse ikinci kopyanın sınıfı yeniden tanımlaması önlendi.
+- İkinci kopyanın etkinleştirilmesi, mevcut kopyayı devre dışı bırakma yönergesiyle durdurulur.
+- Eski sürüm önce yüklendiğinde ve yeni sürüm iki kez yüklendiğinde PHP kontrolleri geçti; asıl 27 PHP kontrolü de yeniden geçti.
 
 ## 1.1.0 değişiklikleri
 
