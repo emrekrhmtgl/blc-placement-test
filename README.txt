@@ -1,12 +1,12 @@
 # BLC Placement Test
 
-British Language Center için bağımsız WordPress İngilizce seviye ön değerlendirme eklentisi. **Sürüm: 1.1.1** · PHP 7.4 veya üzeri.
+British Language Center için bağımsız WordPress İngilizce seviye ön değerlendirme eklentisi. **Sürüm: 1.1.2** · PHP 7.4 veya üzeri.
 
 **Akış: anonim test → sonuç → isteğe bağlı öğrenci iletişim bilgileri.** Teste başlamak veya sonucu görmek için hesap, isim, telefon ya da e-posta gerekmez. Başvuru formunun zorunlu alanları yalnızca danışmanlık talebi göndermek isteyenler içindir.
 
 ## Kurulum
 
-1. Bu depoda **Code → Download ZIP** seçin. ZIP'in kök klasörünün içinde `blc-placement-test.php`, `assets/` ve `templates/` bulunmalıdır. Ayrıca hazırlanmış `blc-placement-test-v1.1.1.zip` paketi kullanılabilir.
+1. Bu depoda **Code → Download ZIP** seçin. ZIP'in kök klasörünün içinde `blc-placement-test.php`, `assets/` ve `templates/` bulunmalıdır. Ayrıca hazırlanmış `blc-placement-test-v1.1.2.zip` paketi kullanılabilir.
 2. WordPress → Eklentiler → Yeni Eklenti Ekle → Eklenti Yükle bölümünden ZIP'i yükleyip etkinleştirin. Daha önce kuruluysa aynı eklentinin güncelleme seçeneğini kullanın; farklı klasör adlarıyla iki kopyayı aynı anda etkinleştirmeyin.
 3. Testi göstermek istediğiniz sayfaya Kısa Kod bloğu ekleyip **`[blc_placement_test_page]`** yazın. Bu yeni kısa kod, mobil uyumlu sayfa tasarımı içinde mevcut `[blc_placement_test]` sınavını çalıştırır. WPBakery kullanılıyorsa Text Block bileşenine de aynı kısa kodu yazabilirsiniz. Sadece sınav kartı istenirse eski `[blc_placement_test]` kullanılabilir.
 4. **BLC Seviye Testi** menüsünden başlangıç sorularını inceleyin. A1, A2, B1, B2 ve C1 seviyelerinin her birinde en az 8 aktif soru bulunmalıdır.
@@ -19,7 +19,7 @@ Bu paket başka tema veya eklentilerin dosyalarını değiştirmez. Etkinleştir
 
 GitHub'ın Download ZIP paketi `blc-placement-test-main`, hazırlanan standart kurulum ZIP'i `blc-placement-test` klasörünü kullanır. WordPress bunları iki ayrı eklenti olarak görebilir. **İkisini aynı anda etkinleştirmeyin.**
 
-Mevcut klasörünüz `blc-placement-test-main` ise bu klasör adına uygun `blc-placement-test-main-v1.1.1.zip` güncelleme paketini kullanabilirsiniz. Önce Eklentiler ekranında etkin BLC Placement Test kopyalarını devre dışı bırakın. ZIP'i yükleyip yüklü olanı değiştirin; yalnızca 1.1.1 sürümünü etkinleştirin. Devre dışı bırakma ve bu güncelleme soru bankasını veya başvuruları silmez. Sayfadaki tasarım kısa kodu `[blc_placement_test_page]` olarak kalır.
+Mevcut klasörünüz `blc-placement-test-main` ise bu klasör adına uygun `blc-placement-test-main-v1.1.2.zip` güncelleme paketini kullanabilirsiniz. ZIP'i yükleyip yüklü olanı değiştirin; yalnızca güncel sürüm etkin olsun. Farklı klasöre geçiyorsanız önce mevcut kopyayı devre dışı bırakın. Bu güncelleme soru bankasını veya başvuruları silmez. Sayfadaki tasarım kısa kodu `[blc_placement_test_page]` olarak kalır.
 
 1.1.1, mevcut sınıf yüklüyken yeni kopyanın yüklenmesini korur ve çift etkinleştirmede açıklayıcı mesaj verir. Bu koruma eski ve korumasız dosyaların her yüklenme sırasını düzeltemez; yine yalnızca tek kopya etkin olmalıdır.
 
@@ -30,6 +30,8 @@ Mevcut klasörünüz `blc-placement-test-main` ise bu klasör adına uygun `blc-
 Sayfa ayarlarında mümkünse **Tam genişlik / Kenar çubuğu yok** seçin. Tema ayrıca sayfa başlığı gösteriyorsa başlık görünürlüğünü tema ayarından kapatabilirsiniz. Aynı sayfada eski sınav kısa kodunu yenisiyle **değiştirin**; ikisini birlikte eklemeyin.
 
 HTML `templates/page.html`, tasarım CSS'i `assets/page.css`, küçük gezinme/rehber JS'i `assets/page.js` içindedir. CSS yalnızca `.blc-page` içini etkiler; dışarıdan font veya görsel yüklenmez. Mobilde tek sütun, klavye ile gezinme ve azaltılmış hareket tercihi desteklenir. Testin asıl PHP/JS puanlama ve kayıt akışı korunur.
+
+1.1.2'den itibaren sayfa ve sınav kartı tema tipografisini kullanır: zorunlu Segoe UI/Arial ailesi, sabit piksel yazı boyutları ve başlıkların tema fontunu ezen kurallar kaldırılmıştır. Normal metin çevresindeki içeriğin fontunu/boyutunu devralır; temanın başlık, buton ve form kuralları geçerli kalır. Küçük bilgi etiketleri ana yazı boyutuna bağlı `em` oranları kullanır. Girişteki büyük başlık ayrıca mobil uyumlu ölçeklenir. Önbelleği temizlemek güncel CSS'in yüklenmesini sağlar.
 
 HTML'i ayrı kullanmak isteyenler mevcut `[blc_placement_test]` kısa kodunu `templates/page.html` içindeki yerinde tutmalı ve `__BLC_EXAM_ID__` işaretlerini benzersiz bir HTML kimliğiyle değiştirmelidir. Gutenberg Özel HTML ve WPBakery Raw HTML blokları kısa kodu doğrudan çalıştırmak için uygun değildir; önerilen kurulum yukarıdaki yeni sayfa kısa kodudur.
 
@@ -56,6 +58,12 @@ Sınav oluşturma saatte IP başına 12, başvuru gönderme saatte IP başına 1
 PHP kontrolleri WordPress/veritabanı yerine test taklitleri, tarayıcı testi taklit AJAX yanıtları kullanır. **Canlı WordPress/MySQL entegrasyonu veya mevcut sitenin tema/önbellek uyumu test edilmedi.** Yayına almadan önce deneme ortamında yukarıdaki kurulum kontrolünü tamamlayın.
 
 1.1.0 tasarımı 320, 375, 390, 768, 1024 ve 1440 px ekran genişliklerinde kontrol edildi. Soru ve sonuç ekranında yatay taşma, anonim testin tamamlanması, uzun Pre-A1 sonucu, isteğe bağlı form, adım rehberi, açılır sorular ve azaltılmış hareket tercihi doğrulandı. PHP kontrolleri yeni sürümde yeniden geçti. Yerel görsel önizlemede örnek veriler kullanılır ve form kayıtları gönderilmez; kurulan eklenti gerçek WordPress uç noktalarını kullanır.
+
+## 1.1.2 değişiklikleri
+
+- Sayfa, sınav soruları, seçenekler, sonuç ve başvuru formunda tema tipografisini ezen sabit font/başlık kuralları kaldırıldı.
+- Tema değiştiğinde metin, başlık ve form fontları/boyutları da güncellenir; küçük etiketler orantılı ölçeklenir.
+- 18 ve 20 px temel yazı boyutuna sahip iki örnek tema ile font mirası, 320–1440 px yerleşim, 40 soruluk test ve isteğe bağlı form tarayıcıda kontrol edildi. Mevcut sitenin gerçek tema ayarları bu yerel testte kullanılmadı.
 
 ## 1.1.1 değişiklikleri
 

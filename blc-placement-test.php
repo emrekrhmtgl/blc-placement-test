@@ -2,7 +2,7 @@
 /**
  * Plugin Name: BLC Placement Test
  * Description: Independent English placement test with optional post-result lead capture.
- * Version: 1.1.1
+ * Version: 1.1.2
  * Requires PHP: 7.4
  * Text Domain: blc-placement-test
  */
@@ -10,7 +10,7 @@ if (!defined('ABSPATH')) exit;
 // Conditional declaration also defers PHP class registration until this check runs.
 if (!class_exists('BLC_Placement_Test', false)) {
 final class BLC_Placement_Test {
- const VER='1.1.1'; const TABLE='blc_pt_questions'; const ATTEMPTS='blc_pt_attempts'; const LEADS='blc_pt_leads';
+ const VER='1.1.2'; const TABLE='blc_pt_questions'; const ATTEMPTS='blc_pt_attempts'; const LEADS='blc_pt_leads';
  public static function init(){
   register_activation_hook(__FILE__,[__CLASS__,'activate']);
   register_deactivation_hook(__FILE__,[__CLASS__,'deactivate']);
@@ -195,7 +195,7 @@ BLC_Placement_Test::init();
  // WordPress loads active plugins before loading a second copy for activation.
  // Stop that activation with an actionable message instead of a class fatal.
  register_activation_hook(__FILE__, static function () {
-  wp_die('BLC Placement Test başka bir klasörde zaten etkin. Eklentiler ekranında mevcut BLC Placement Test kopyasını devre dışı bırakın; ardından yalnızca 1.1.1 sürümünü etkinleştirin. Soru ve başvuru kayıtları korunur.');
+  wp_die('BLC Placement Test başka bir klasörde zaten etkin. Eklentiler ekranında mevcut BLC Placement Test kopyasını devre dışı bırakın; ardından yalnızca 1.1.2 sürümünü etkinleştirin. Soru ve başvuru kayıtları korunur.');
  });
  add_action('admin_notices', static function () {
   echo '<div class="notice notice-error"><p>BLC Placement Test birden fazla klasörde etkin. Eklentiler ekranından kopyaları devre dışı bırakıp yalnızca güncel sürümü etkinleştirin.</p></div>';
